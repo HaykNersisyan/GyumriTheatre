@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\Hayk\Desktop\GyumriTheatre\app\libs\YouTubeAndroidPlayerApi.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3c4f96ff493456651cc7bdb0b47e10eb25545a16">
+        <dex dex="C:\Users\Hayk\Desktop\GyumriTheatre\app\build\intermediates\pre-dexed\debug\YouTubeAndroidPlayerApi_47c3e1a913976fca5c99b2b5154c0bf2facf68cd.jar" />
+    </item>
+
+</items>
