@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -18,6 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import diploma.gyumri.theatre.R;
 import diploma.gyumri.theatre.model.Event;
@@ -31,11 +34,19 @@ public class EventFragment extends Fragment {
     private YouTubePlayerSupportFragment youTubePlayerFragment;
     private boolean notVideo;
     private Unbinder unbinder;
+    private boolean expandable = false;
     @BindView(R.id.playerContainer)
     FrameLayout playerContainer;
     @BindView(R.id.imgEventFragment)
     ImageView imgEventFragment;
-
+    @BindView(R.id.extDescription)
+    ExpandableTextView expandableDescription;
+    @BindView(R.id.expandableImg)
+    ImageView expandableImg;
+    @BindView(R.id.txtTitle)
+    TextView txtTitle;
+    @BindView(R.id.descriptionLayout)
+    LinearLayout descriptionLayout;
 
     public EventFragment(Event event) {
         mEvent = event;
@@ -57,9 +68,10 @@ public class EventFragment extends Fragment {
                 " eget libero molestie porta. Nam tempor fringilla ultricies. Nam sem " +
                 "lectus, feugiat eget ullamcorper vitae, ornare et sem. Fusce dapibus ipsum" +
                 " sed laoreet suscipit. ";
+        expandableDescription.setText(yourText);
+        expandableDescription.setVisibility(View.INVISIBLE);
+        descriptionLayout.setVisibility(View.INVISIBLE);
 
-        ExpandableTextView expandableTextView = (ExpandableTextView) view.findViewById(R.id.extDescription);
-        expandableTextView.setText(yourText);
 
     }
 
@@ -70,7 +82,7 @@ public class EventFragment extends Fragment {
         unbinder = ButterKnife.bind(this, rootView);
         playerContainer.setVisibility(View.VISIBLE);
         youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
-
+        txtTitle.setText(mEvent.getName());
 
         if (notVideo) {
             playerContainer.setVisibility(View.GONE);
@@ -103,6 +115,25 @@ public class EventFragment extends Fragment {
         }
 
         return rootView;
+    }
+
+
+    @OnClick(R.id.eventTitle)
+    void expandableBtnOnClick() {
+        expandableDescription.expandableTextListener();
+        if (expandable) {
+            expandableDescription.setVisibility(View.INVISIBLE);
+            descriptionLayout.setVisibility(View.INVISIBLE);
+
+
+            expandableImg.setImageDrawable(getResources().getDrawable(R.drawable.expand_button));
+        } else {
+            expandableDescription.setVisibility(View.VISIBLE);
+            descriptionLayout.setVisibility(View.VISIBLE);
+
+            expandableImg.setImageDrawable(getResources().getDrawable(R.drawable.up_arrow_key));
+        }
+        expandable = !expandable;
     }
 
 

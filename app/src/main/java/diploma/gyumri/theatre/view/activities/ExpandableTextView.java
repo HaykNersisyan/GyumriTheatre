@@ -2,10 +2,9 @@ package diploma.gyumri.theatre.view.activities;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
-import android.view.View;
-import android.support.v7.widget.*;
 
 import diploma.gyumri.theatre.R;
 
@@ -34,14 +33,19 @@ public class ExpandableTextView extends AppCompatTextView {
         this.trimLength = typedArray.getInt(R.styleable.ExpandableTextView_trimLength, DEFAULT_TRIM_LENGTH);
         typedArray.recycle();
 
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                trim = !trim;
-                setText();
-                requestFocusFromTouch();
-            }
-        });
+//        setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+    }
+
+
+    public void expandableTextListener(){
+        trim = !trim;
+        setText();
+        requestFocusFromTouch();
     }
 
     private void setText() {
@@ -49,7 +53,7 @@ public class ExpandableTextView extends AppCompatTextView {
     }
 
     private CharSequence getDisplayableText() {
-        return trim ? trimmedText : originalText;
+        return trim ? "" : originalText;
     }
 
     @Override
@@ -62,7 +66,7 @@ public class ExpandableTextView extends AppCompatTextView {
 
     private CharSequence getTrimmedText(CharSequence text) {
         if (originalText != null && originalText.length() > trimLength) {
-            return new SpannableStringBuilder(originalText, 0, trimLength + 1).append(ELLIPSIS);
+            return new SpannableStringBuilder(originalText, 0, 0).append("");
         } else {
             return originalText;
         }
