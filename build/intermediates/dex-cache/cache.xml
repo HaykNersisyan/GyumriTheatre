@@ -2,13 +2,31 @@
 <items version="2" >
 
     <item
-        is-multidex="false"
-        jar="C:\Users\Hayk\Desktop\GyumriTheatre\app\libs\YouTubeAndroidPlayerApi.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/home/vahan/Desktop/diplomayin/GyumriTheatre/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="/home/vahan/Desktop/diplomayin/GyumriTheatre/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_5891a9f01af3aae3729cd395cd24338110dc3f4e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/vahan/Desktop/diplomayin/GyumriTheatre/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5013c3f2dd233a159cb75405636413103d2e2877">
+        <dex dex="/home/vahan/Desktop/diplomayin/GyumriTheatre/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_1a03d366837807595defaaa271ee542c803fe5dd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/vahan/Desktop/diplomayin/GyumriTheatre/app/libs/YouTubeAndroidPlayerApi.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="3c4f96ff493456651cc7bdb0b47e10eb25545a16">
-        <dex dex="C:\Users\Hayk\Desktop\GyumriTheatre\app\build\intermediates\pre-dexed\debug\YouTubeAndroidPlayerApi_47c3e1a913976fca5c99b2b5154c0bf2facf68cd.jar" />
+        <dex dex="/home/vahan/Desktop/diplomayin/GyumriTheatre/app/build/intermediates/transforms/dex/debug/folders/1000/2/YouTubeAndroidPlayerApi_101b5e491608f5ed9141dc80c0ee05e387ca7e4b/classes.dex" />
     </item>
 
 </items>
