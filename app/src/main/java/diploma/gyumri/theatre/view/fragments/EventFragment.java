@@ -16,6 +16,9 @@ import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import diploma.gyumri.theatre.R;
 import diploma.gyumri.theatre.model.Event;
 import diploma.gyumri.theatre.view.activities.ExpandableTextView;
@@ -26,9 +29,13 @@ public class EventFragment extends Fragment {
     private Event mEvent;
     private static final String YoutubeDeveloperKey = "AIzaSyDjeZH1klcMNqIHs5PTrw55bNJj5HkMXF8";
     private YouTubePlayerSupportFragment youTubePlayerFragment;
-    private FrameLayout playerContainer;
-    private ImageView image;
     private boolean notVideo;
+    private Unbinder unbinder;
+    @BindView(R.id.playerContainer)
+    FrameLayout playerContainer;
+    @BindView(R.id.imgEventFragment)
+    ImageView imgEventFragment;
+
 
     public EventFragment(Event event) {
         mEvent = event;
@@ -60,16 +67,14 @@ public class EventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_event, container, false);
-
-        playerContainer = (FrameLayout) rootView.findViewById(R.id.playerContainer);
-        image = (ImageView) rootView.findViewById(R.id.imgEventFragment);
+        unbinder = ButterKnife.bind(this, rootView);
         playerContainer.setVisibility(View.VISIBLE);
         youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
 
 
         if (notVideo) {
             playerContainer.setVisibility(View.GONE);
-            Picasso.with(getContext()).load(mEvent.getImgUrl()).into(image);
+            Picasso.with(getContext()).load(mEvent.getImgUrl()).into(imgEventFragment);
 
         } else {
             getChildFragmentManager().beginTransaction()
@@ -83,10 +88,10 @@ public class EventFragment extends Fragment {
                         YPlayer.setFullscreen(false);
                         YPlayer.cueVideo(mEvent.getVideoUrl());
                         YPlayer.setShowFullscreenButton(false);
-                        YPlayer.setPlayerStateChangeListener
-                                (new YouTubePlayerStateChangeListener(getContext()
-                                        , mEvent, image, playerContainer));
-                        image.setVisibility(View.GONE);
+                        YPlayer.setPlayerStateChangeListener(
+                                new YouTubePlayerStateChangeListener(getContext()
+                                        , mEvent, imgEventFragment, playerContainer));
+                        imgEventFragment.setVisibility(View.GONE);
                     }
                 }
 
@@ -104,6 +109,6 @@ public class EventFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        mUnbinder.unbind();
+        unbinder.unbind();
     }
 }
