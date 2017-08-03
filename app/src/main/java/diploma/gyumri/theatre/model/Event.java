@@ -1,7 +1,6 @@
 package diploma.gyumri.theatre.model;
 
 import lombok.Data;
-import lombok.ToString;
 
 /**
  * Created by sofi on 7/27/17.
@@ -21,7 +20,7 @@ class Event {
 
     @Override
     public String toString() {
-        return "Event{" +
+        return "EventDTO{" +
                 "name='" + name + '\'' +
                 ", desc='" + desc + '\'' +
                 ", price='" + price + '\'' +

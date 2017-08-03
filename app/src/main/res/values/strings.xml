@@ -3,9 +3,18 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <string name="load">Loading…</string>
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_loading">LoadingActivity</string>
+    <string name="login">Մուտքանուն</string>
+    <string name="password">Գաղտնաբառ</string>
+    <string name="name">Անուն</string>
+    <string name="surname">Ազգանուն</string>
+    <string name="phone">Հեռախոսահամար</string>
+    <string name="email">Էլ․ հասցե</string>
+    <string name="confirmPassword">Հաստատել գաղտաբառը</string>
+    <string name="register">Գրանցվել</string>
 </resources>

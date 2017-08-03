@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         getSupportFragmentManager().beginTransaction().add(R.id.container, MainFragment.newInstance(getSupportFragmentManager()), "tag").commit();
 //        getSupportFragmentManager().beginTransaction().add(R.id.container, new EventFragment(), "tag").commit();
-
+        
     }
 
     @Override

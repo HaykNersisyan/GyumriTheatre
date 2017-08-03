@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -16,6 +18,10 @@ import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import diploma.gyumri.theatre.R;
 import diploma.gyumri.theatre.model.Event;
 import diploma.gyumri.theatre.view.activities.ExpandableTextView;
@@ -26,9 +32,21 @@ public class EventFragment extends Fragment {
     private Event mEvent;
     private static final String YoutubeDeveloperKey = "AIzaSyDjeZH1klcMNqIHs5PTrw55bNJj5HkMXF8";
     private YouTubePlayerSupportFragment youTubePlayerFragment;
-    private FrameLayout playerContainer;
-    private ImageView image;
     private boolean notVideo;
+    private Unbinder unbinder;
+    private boolean expandable = false;
+    @BindView(R.id.playerContainer)
+    FrameLayout playerContainer;
+    @BindView(R.id.imgEventFragment)
+    ImageView imgEventFragment;
+    @BindView(R.id.extDescription)
+    ExpandableTextView expandableDescription;
+    @BindView(R.id.expandableImg)
+    ImageView expandableImg;
+    @BindView(R.id.txtTitle)
+    TextView txtTitle;
+    @BindView(R.id.descriptionLayout)
+    LinearLayout descriptionLayout;
 
     public EventFragment(Event event) {
         mEvent = event;
@@ -50,9 +68,10 @@ public class EventFragment extends Fragment {
                 " eget libero molestie porta. Nam tempor fringilla ultricies. Nam sem " +
                 "lectus, feugiat eget ullamcorper vitae, ornare et sem. Fusce dapibus ipsum" +
                 " sed laoreet suscipit. ";
+        expandableDescription.setText(yourText);
+        expandableDescription.setVisibility(View.INVISIBLE);
+        descriptionLayout.setVisibility(View.INVISIBLE);
 
-        ExpandableTextView expandableTextView = (ExpandableTextView) view.findViewById(R.id.extDescription);
-        expandableTextView.setText(yourText);
 
     }
 
@@ -60,16 +79,14 @@ public class EventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_event, container, false);
-
-        playerContainer = (FrameLayout) rootView.findViewById(R.id.playerContainer);
-        image = (ImageView) rootView.findViewById(R.id.imgEventFragment);
+        unbinder = ButterKnife.bind(this, rootView);
         playerContainer.setVisibility(View.VISIBLE);
         youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
-
+        txtTitle.setText(mEvent.getName());
 
         if (notVideo) {
             playerContainer.setVisibility(View.GONE);
-            Picasso.with(getContext()).load(mEvent.getImgUrl()).into(image);
+            Picasso.with(getContext()).load(mEvent.getImgUrl()).into(imgEventFragment);
 
         } else {
             getChildFragmentManager().beginTransaction()
@@ -83,10 +100,10 @@ public class EventFragment extends Fragment {
                         YPlayer.setFullscreen(false);
                         YPlayer.cueVideo(mEvent.getVideoUrl());
                         YPlayer.setShowFullscreenButton(false);
-                        YPlayer.setPlayerStateChangeListener
-                                (new YouTubePlayerStateChangeListener(getContext()
-                                        , mEvent, image, playerContainer));
-                        image.setVisibility(View.GONE);
+                        YPlayer.setPlayerStateChangeListener(
+                                new YouTubePlayerStateChangeListener(getContext()
+                                        , mEvent, imgEventFragment, playerContainer));
+                        imgEventFragment.setVisibility(View.GONE);
                     }
                 }
 
@@ -101,9 +118,26 @@ public class EventFragment extends Fragment {
     }
 
 
+    @OnClick(R.id.eventTitle)
+    void expandableBtnOnClick() {
+        expandableDescription.expandableTextListener();
+        if (expandable) {
+            expandableDescription.setVisibility(View.INVISIBLE);
+            descriptionLayout.setVisibility(View.INVISIBLE);
+            expandableImg.setImageDrawable(getResources().getDrawable(R.drawable.expand_button));
+        } else {
+            expandableDescription.setVisibility(View.VISIBLE);
+            descriptionLayout.setVisibility(View.VISIBLE);
+
+            expandableImg.setImageDrawable(getResources().getDrawable(R.drawable.up_arrow_key));
+        }
+        expandable = !expandable;
+    }
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        mUnbinder.unbind();
+        unbinder.unbind();
     }
 }

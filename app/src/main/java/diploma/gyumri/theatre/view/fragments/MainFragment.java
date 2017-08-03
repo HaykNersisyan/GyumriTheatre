@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import diploma.gyumri.theatre.R;
 import diploma.gyumri.theatre.model.Event;
 import diploma.gyumri.theatre.model.JsonParser;
@@ -23,31 +26,31 @@ import diploma.gyumri.theatre.view.adapters.CustomAdapter;
  */
 public class MainFragment extends Fragment {
     private FragmentManager mFragmentManager;
+    private Unbinder unbinder;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
 
     public MainFragment(FragmentManager fragmentManager) {
-        mFragmentManager=fragmentManager;
+        mFragmentManager = fragmentManager;
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        unbinder = ButterKnife.bind(this, view);
         List<Event> events = JsonParser.getEventList(getActivity());
-        CustomAdapter adapter = new CustomAdapter(events, getActivity(),mFragmentManager);
-
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerView);
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv.setAdapter(adapter);
+        CustomAdapter adapter = new CustomAdapter(events, getActivity(), mFragmentManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_main, container, false);
-
     }
+
     public static MainFragment newInstance(FragmentManager fragmentManager) {
 
         Bundle args = new Bundle();
@@ -57,4 +60,9 @@ public class MainFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
 }
