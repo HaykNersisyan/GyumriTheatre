@@ -17,4 +17,5 @@
     <string name="email">Էլ․ հասցե</string>
     <string name="confirmPassword">Հաստատել գաղտաբառը</string>
     <string name="register">Գրանցվել</string>
+    <string name="sign_in">Մուտք</string>
 </resources>

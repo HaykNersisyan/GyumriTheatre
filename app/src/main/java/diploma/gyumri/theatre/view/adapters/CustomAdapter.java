@@ -56,7 +56,7 @@ public class CustomAdapter extends RecyclerView.Adapter<MyViewHolder> implements
         if (position == 2) {
             events.get(position).setVideoUrl(null);
         }
-        fragmentManager.beginTransaction().replace(R.id.container, new EventFragment(events.get(position))).commit();
+        fragmentManager.beginTransaction().replace(R.id.container, new EventFragment(events.get(position))).addToBackStack(null).commit();
 
     }
 

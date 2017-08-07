@@ -1,11 +1,13 @@
 package diploma.gyumri.theatre.view.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +27,7 @@ import butterknife.Unbinder;
 import diploma.gyumri.theatre.R;
 import diploma.gyumri.theatre.model.Event;
 import diploma.gyumri.theatre.view.activities.ExpandableTextView;
+import diploma.gyumri.theatre.view.activities.RegistrationActivity;
 import diploma.gyumri.theatre.view.presenter.listeners.YouTubePlayerStateChangeListener;
 
 public class EventFragment extends Fragment {
@@ -47,7 +50,8 @@ public class EventFragment extends Fragment {
     TextView txtTitle;
     @BindView(R.id.descriptionLayout)
     LinearLayout descriptionLayout;
-
+    @BindView(R.id.buyTicket)
+    Button buyTicketBtn;
     public EventFragment(Event event) {
         mEvent = event;
         this.notVideo = event.getVideoUrl() == null;
@@ -134,7 +138,11 @@ public class EventFragment extends Fragment {
         expandable = !expandable;
     }
 
-
+@OnClick(R.id.buyTicket)
+void onClick(){
+    Intent intent = new Intent(getActivity(), RegistrationActivity.class);
+    startActivity(intent);
+}
     @Override
     public void onDestroy() {
         super.onDestroy();
